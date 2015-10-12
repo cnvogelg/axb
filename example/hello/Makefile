@@ -1,6 +1,6 @@
 # simple axb Makefile to build a program with a single source file
 
-AXB_TOP = $(PWD)/../..
+AXB_TOP ?= $(PWD)/../..
 include $(AXB_TOP)/axb_def.mk
 
 AXB_PROJECT=hello

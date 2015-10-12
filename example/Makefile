@@ -1,11 +1,4 @@
-SUBDIRS=hello
+AXB_SUBDIRS = hello
 
-all:
-	@for a in $(SUBDIRS) ; do \
-		make -C $(SUBDIRS) all ; \
-	done
-
-clean:
-	@for a in $(SUBDIRS) ; do \
-		make -C $(SUBDIRS) clean ; \
-	done
+AXB_TOP = $(PWD)/..
+include $(AXB_TOP)/make/subdirs.mk
