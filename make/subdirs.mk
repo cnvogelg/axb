@@ -15,9 +15,9 @@ define SUB_RULE_TEMPLATE
 
 $(1)_RULES = $$(addsuffix .$(1),$$(AXB_SUBDIRS))
 
-ALL_PHONY += $(1) $$($(1)_RULES)
+ALL_PHONY += $(1) $(1)-subdirs $$($(1)_RULES)
 
-$(1): $$($(1)_RULES)
+$(1) $(1)-subdirs: $$($(1)_RULES)
 
 $$($(1)_RULES): %.$(1):
 	make -C $$* $(1)
