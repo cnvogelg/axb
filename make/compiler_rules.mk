@@ -12,7 +12,7 @@ $(BUILD_DIR):
 
 # compiler dirs
 $(ALL_BUILD_DIRS): $(BUILD_DIR)/%:
-	mkdir $@
+	mkdir -p $@
 
 # clean up
 clean:
@@ -21,6 +21,8 @@ clean:
 # ----- compile rules -----
 
 build-c-objs: build-dirs $(ALL_C_OBJS)
+
+build-asm-objs: build-dirs $(ALL_ASM_OBJS)
 
 # ----- link rules -----
 

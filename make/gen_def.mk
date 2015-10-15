@@ -5,6 +5,17 @@ define DEFS_CV_TEMPLATE
 
 dummy := $$(shell echo hallo $(1) $(2))
 
+# includes
+$(1)_$(2)_INCDIRS = $$(patsubst %,$$($(1)_INC_PREFIX)%,$$(AXB_INCLUDES))
+
+# all c flags
+$(1)_$(2)_ALL_CFLAGS = $$($(1)_CFLAGS) $$($(1)_CFLAGS_$(2)) $$($(1)_$(2)_INCDIRS)
+
+# all asm flags
+$(1)_$(2)_ALL_ASMFLAGS = $$($$(AXB_ASM)_C_$(1)_OUT) $$($$(AXB_ASM)_FLAGS) \
+	$$($$(AXB_ASM)_INC_PREFIX) $$(BUILD_DIR) \
+	$$($$(AXB_ASM)_INC_PREFIX) $$($(1)_$(2)_BUILD_DIR)
+
 # build dir
 $(1)_$(2)_BUILD_DIR = $$(BUILD_DIR)/$$($(1)_EXT)_$($(2)_EXT)
 
@@ -32,6 +43,10 @@ $(1)_$(2)_$(3)_ASM_OBJS = $$(patsubst %.s,$$($(1)_$(2)_BUILD_DIR)/%.o,$$(AXB_SRC
 
 # all objects
 $(1)_$(2)_$(3)_OBJS = $$($(1)_$(2)_$(3)_C_OBJS) $$($(1)_$(2)_$(3)_ASM_OBJS)
+
+# combine objects
+ALL_C_OBJS += $$($(1)_$(2)_$(3)_C_OBJS)
+ALL_ASM_OBJS += $$($(1)_$(2)_$(3)_ASM_OBJS)
 
 endef
 

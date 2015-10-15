@@ -1,5 +1,6 @@
-# simple axb Makefile to build a program with a single source file
+# simple axb Makefile to build a c and a assembler program
 
+AXB_PROJECT=hello
 AXB_PROGRAMS=hello
 AXB_SRCS_C_hello=hello.c
 
