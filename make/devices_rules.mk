@@ -57,7 +57,11 @@ $$($(1)_$(2)_AXB_DEVSTUB_OBJ): $$(DEVINFO_INC) $$($(1)_$(2)_DEVSIZE_INC)
 
 # link rule for device
 $$($(1)_$(2)_BUILD_DIR)/$$(AXB_DEVICE): $$($(1)_$(2)_DEVICE_OBJS)
-	$$($(1)_BIN) $$($(1)_LDFLAGS) $$($(1)_DEVICE_LDFLAGS) $$($(1)_LDFLAGS_$(2)) $$($(1)_LINK_OUT) $$@ $$< $$($(1)_LIBS) $$($(1)_LIBS_$(2))
+	$$($(1)_BIN) $$($(1)_LDFLAGS) $$($(1)_DEVICE_LDFLAGS) $$($(1)_LDFLAGS_$(2)) \
+		$$($(1)_LINK_OUT) $$@ $$+ \
+		$$(patsubst %,$$($(1)_LIB_DIR_PREFIX)%,$$(AMIGA_LIBS_DIR)) \
+		$$($(1)_LIBS) $$($(1)_LIBS_$(2)) \
+		$$($(1)_$(2)_DEVICE_LIBS)
 
 endef
 

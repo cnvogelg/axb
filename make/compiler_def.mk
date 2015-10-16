@@ -10,6 +10,10 @@ VBCC_EXT = vbcc
 VBCC_COMPILE_OUT = -c -o
 VBCC_LINK_OUT = -o
 VBCC_INC_PREFIX = -I
+VBCC_DEFINE_PREFIX = -D
+VBCC_LIB_PREFIX = -l
+VBCC_LIB_DIR_PREFIX = -L
+VBCC_DEVICE_LDFLAGS = -nostdlib
 
 # --- GCC ---
 GCC_BIN = m68k-amigaos-gcc
@@ -24,6 +28,8 @@ GCC_COMPILE_OUT = -c -o
 GCC_LINK_OUT = -o
 GCC_INC_PREFIX = -I
 GCC_DEFINE_PREFIX = -D
+GCC_LIB_PREFIX = -l
+GCC_LIB_DIR_PREFIX = -L
 GCC_DEVICE_LDFLAGS = -nostartfiles -nostdlib
 
 # --- AROS_GCC ---

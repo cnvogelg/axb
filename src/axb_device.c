@@ -9,8 +9,6 @@ struct Device * DevInit(AXB_REG(struct DevBase *db,d0),
                         AXB_REG(BPTR seglist,a0),
                         AXB_REG(struct Library *_SysBase,a6))
 {
-  D(("+DevInit\n"));
-
   /* store sys base */
   db->db_SegList = seglist;
   db->db_SysBase = _SysBase;
@@ -24,8 +22,6 @@ struct Device * DevInit(AXB_REG(struct DevBase *db,d0),
 
   /* user init */
   UserDevInit(db);
-
-  D(("-DevInit\n"));
 
   /* return device base if all went well */
   return (struct Device *)db;

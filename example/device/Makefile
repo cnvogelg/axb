@@ -1,7 +1,7 @@
 # example for creating a device
 
 AXB_PROJECT = device
-AXB_COMPILERS = GCC
+AXB_COMPILERS = GCC #VBCC
 
 # define device name
 AXB_DEVICE = example.device
@@ -16,6 +16,12 @@ AXB_DEVICE_LIBSIZE_NAME = ExBase
 # source files for device
 AXB_DEVICE_SRCS_C = example.c
 AXB_DEFINES = USE_DOS DEBUG
+AXB_DEVICE_AMI_LIBS = debug.lib
+AXB_DEVICE_LIBS = amiga
+
+# test program
+AXB_PROGRAMS=test
+AXB_SRCS_C_test=test.c
 
 # include rules for device building
 AXB_TOP ?= $(PWD)/../..

@@ -14,16 +14,13 @@ struct MyStartMsg {
   struct ExBase *eb;
 };
 
-void MyWorker(void)
+static struct MyStartMsg *setup(void)
 {
-  struct IORequest *ior;
-  struct IOExtSer *ioes;
-  long input, output;
   struct Process *proc;
   struct MyStartMsg *msg;
-  struct DevBase *db;
-  struct ExBase *eb;
-  struct MsgPort *port;
+
+  /* local sys base */
+  RealSysBase;
 
   proc = (struct Process *)FindTask((char *)NULL);
 
@@ -33,8 +30,22 @@ void MyWorker(void)
   }
 
   /* extract DevBase db for lib base access */
+  return msg;
+}
+
+void MyWorker(void)
+{
+  struct IORequest *ior;
+  struct IOExtSer *ioes;
+  long input, output;
+  struct DevBase *db;
+  struct ExBase *eb;
+  struct MsgPort *port;
+  struct MyStartMsg *msg;
+
+  msg = setup();
   eb = msg->eb;
-  db = (struct DevBase *)eb;
+  db = &eb->eb_DevBase;
 
   /* create worker port */
   port = CreateMsgPort();
@@ -54,6 +65,7 @@ void MyWorker(void)
   output = Open("con:0/110/400/100/Output", MODE_NEWFILE);
 
   /* worker loop */
+  D(("Worker: enter\n"));
   while (1) {
     WaitPort(port);
     while (ior = (struct IORequest *)GetMsg(port)) {
@@ -63,22 +75,24 @@ void MyWorker(void)
           break;
 
         case CMD_READ:
-            ioes = (struct IOExtSer *)ior;
-            ioes->IOSer.io_Actual = Read(input,
-                                   ioes->IOSer.io_Data,
-                                   ioes->IOSer.io_Length);
-            break;
+          D(("CMD_READ\n"));
+          ioes = (struct IOExtSer *)ior;
+          ioes->IOSer.io_Actual = Read(input,
+                                 ioes->IOSer.io_Data,
+                                 ioes->IOSer.io_Length);
+          break;
 
         case CMD_WRITE:
-             Write(output, ioes->IOSer.io_Data,
-                   ioes->IOSer.io_Length);
-             break;
+          D(("CMD_WRITE\n"));
+           Write(output, ioes->IOSer.io_Data,
+                 ioes->IOSer.io_Length);
+           break;
       }
       ReplyMsg(&ior->io_Message);
     }
   }
-
 end:
+  D(("Worker: leave\n"));
   /* shutdown worker */
   Close(input);
   Close(output);
@@ -88,11 +102,13 @@ end:
 
 int UserDevInit(AXB_REG(struct DevBase *db,a6))
 {
+  D(("UserDevInit\n"));
   return 0;
 }
 
 void UserDevExpunge(AXB_REG(struct DevBase *db,a6))
 {
+  D(("UserDevExpunge\n"));
 }
 
 int UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
@@ -102,6 +118,8 @@ int UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
   struct Process *myProc;
   struct MyStartMsg msg;
   struct ExBase *eb = (struct ExBase *)db;
+
+  D(("UserDevOpen\n"));
 
   myProc = CreateNewProcTags(NP_Entry, (LONG)MyWorker,
                              NP_StackSize, 4096,
@@ -133,6 +151,8 @@ void UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
   struct IORequest newior;
   struct ExBase *eb = (struct ExBase *)db;
 
+  D(("UserDevClose\n"));
+
   /* send a message to the child process to shut down. */
   newior.io_Message.mn_ReplyPort = CreateMsgPort();
   newior.io_Command = CMD_TERM;
@@ -151,6 +171,9 @@ void DevBeginIO(AXB_REG(struct IOStdReq *ior,a1),
                 AXB_REG(struct DevBase *db,a6))
 {
   struct ExBase *eb = (struct ExBase *)db;
+
+  D(("DevBeginIO\n"));
+
   ior->io_Error = 0;
   ior->io_Flags &= ~IOF_QUICK;
   switch(ior->io_Command)
@@ -176,5 +199,6 @@ void DevBeginIO(AXB_REG(struct IOStdReq *ior,a1),
 LONG DevAbortIO(AXB_REG(struct IOStdReq *ior,a1),
                 AXB_REG(struct DevBase *db,a6))
 {
+  D(("DevAbortIO\n"));
   return 0;
 }

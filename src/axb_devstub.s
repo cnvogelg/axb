@@ -46,15 +46,15 @@ romtag:
 
 devname:
     DEVICE_NAME
-    dc.b ".device",0
-    dc.b  0,'$VER: '
+    dc.b  0
 devid:
+    dc.b  '$VER: '
     DEVICE_NAME
-    dc.b " "
+    dc.b  " "
     DEVICE_VER
-    dc.b " ("
+    dc.b  " ("
     DEVICE_DATE
-    dc.b ")",13,10,0
+    dc.b  ")",13,10,0
 
     cnop 0,2
 

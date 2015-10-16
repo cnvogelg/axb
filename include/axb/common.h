@@ -15,6 +15,8 @@
 
 #ifdef DEBUG
 #define D(x) KPrintF x ;
+#else
+#define D(x)
 #endif
 
 #endif

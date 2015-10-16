@@ -24,6 +24,9 @@ struct DevBase {
 #define DOSBase db->db_DosBase
 #endif
 
+/* fake db->db_SysBase for new tasks */
+#define RealSysBase struct { struct Library *db_SysBase; } *db = (void*)0x4
+
 /* easy access to device */
 int UserDevInit(AXB_REG(struct DevBase *db,a6));
 void UserDevExpunge(AXB_REG(struct DevBase *db,a6));

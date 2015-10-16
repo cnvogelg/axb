@@ -16,9 +16,6 @@ VPATH += $(AXB_TOP)/src $(BUILD_DIR)
 # $(2) variant
 define DEVICE_DEF_TEMPLATE
 
-# user device files
-$(1)_$(2)_DEVICE_OBJS = $$(patsubst %.c,$$($(1)_$(2)_BUILD_DIR)/%.o,$$(AXB_DEVICE_SRCS_C))
-
 # derived device name
 $(1)_$(2)_DEVICE_FILE = $$($(1)_$(2)_BUILD_DIR)/$$(AXB_DEVICE)
 
@@ -31,7 +28,13 @@ $(1)_$(2)_DEVSIZE_RAW = $$($(1)_$(2)_BUILD_DIR)/devsize.raw
 $(1)_$(2)_AXB_DEVSTUB_OBJ = $$($(1)_$(2)_BUILD_DIR)/axb_devstub.o
 $(1)_$(2)_AXB_DEVICE_OBJ = $$($(1)_$(2)_BUILD_DIR)/axb_device.o
 
-$(1)_$(2)_DEVICE_OBJS += $$($(1)_$(2)_AXB_DEVSTUB_OBJ) $$($(1)_$(2)_AXB_DEVICE_OBJ)
+# stubs and user device files
+$(1)_$(2)_DEVICE_OBJS = $$($(1)_$(2)_AXB_DEVSTUB_OBJ) $$($(1)_$(2)_AXB_DEVICE_OBJ) \
+	$$(patsubst %.c,$$($(1)_$(2)_BUILD_DIR)/%.o,$$(AXB_DEVICE_SRCS_C))
+
+# extra libs for device
+$(1)_$(2)_DEVICE_LIBS = $$(patsubst %,$$(AMIGA_LIBS_DIR)/%,$$(AXB_DEVICE_AMI_LIBS))
+$(1)_$(2)_DEVICE_LIBS += $$(patsubst %,$$($(1)_LIB_PREFIX)%,$$(AXB_DEVICE_LIBS))
 
 ALL_DEVICE_OBJS += $$($(1)_$(2)_DEVICE_OBJS)
 ALL_DEVSIZE_INCS += $$($(1)_$(2)_DEVSIZE_INC)
