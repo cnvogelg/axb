@@ -86,21 +86,19 @@ end:
   ReplyMsg(&ior->io_Message);
 }
 
-int UserDevInit(struct DevBase *db REG(a6))
+int UserDevInit(AXB_REG(struct DevBase *db,a6))
 {
   return 0;
 }
 
-void UserDevExpunge(struct DevBase *db REG(a6))
+void UserDevExpunge(AXB_REG(struct DevBase *db,a6))
 {
 }
 
-int UserDevOpen(struct IOStdReq *ior REG(a1),
-                ULONG unit REG(d0),
-                struct DevBase *db REG(a6))
+int UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
+                AXB_REG(ULONG unit,d0),
+                AXB_REG(struct DevBase *db,a6))
 {
-#if 0
-
   struct Process *myProc;
   struct MyStartMsg msg;
   struct ExBase *eb = (struct ExBase *)db;
@@ -126,14 +124,12 @@ int UserDevOpen(struct IOStdReq *ior REG(a1),
     return NULL;
 
   DeleteMsgPort(msg.msg.mn_ReplyPort);
-#endif
   return 0;
 }
 
-void UserDevClose(struct IOStdReq *ior REG(a1),
-                  struct DevBase *db REG(a6))
+void UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
+                  AXB_REG(struct DevBase *db,a6))
 {
-#if 0
   struct IORequest newior;
   struct ExBase *eb = (struct ExBase *)db;
 
@@ -149,23 +145,20 @@ void UserDevClose(struct IOStdReq *ior REG(a1),
 
   /* cleanup worker port */
   DeleteMsgPort(eb->eb_WorkerPort);
-#endif
 }
 
-void DevBeginIO(struct IOStdReq *ior REG(a1),
-                struct DevBase *db REG(a6))
+void DevBeginIO(AXB_REG(struct IOStdReq *ior,a1),
+                AXB_REG(struct DevBase *db,a6))
 {
   struct ExBase *eb = (struct ExBase *)db;
   ior->io_Error = 0;
   ior->io_Flags &= ~IOF_QUICK;
   switch(ior->io_Command)
   {
-#if 0
     case CMD_READ:
     case CMD_WRITE:
       PutMsg(eb->eb_WorkerPort, &ior->io_Message);
       break;
-#endif
     case CMD_RESET:
     case CMD_UPDATE:
     case CMD_CLEAR:
@@ -180,8 +173,8 @@ void DevBeginIO(struct IOStdReq *ior REG(a1),
   }
 }
 
-LONG DevAbortIO(struct IOStdReq *ior REG(a1),
-                struct DevBase *db REG(a6))
+LONG DevAbortIO(AXB_REG(struct IOStdReq *ior,a1),
+                AXB_REG(struct DevBase *db,a6))
 {
   return 0;
 }

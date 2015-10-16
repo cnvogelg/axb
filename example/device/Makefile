@@ -14,11 +14,8 @@ AXB_DEVICE_LIBSIZE_HEADER = exbase.h
 AXB_DEVICE_LIBSIZE_NAME = ExBase
 
 # source files for device
-DEVICE_C_SRCS = example.c
-DEVICE_C_HDRS = exbase.h
-
-# config device build
-USER_CFLAGS = -DUSE_DOS -DDEBUG
+AXB_DEVICE_SRCS_C = example.c
+AXB_DEFINES = USE_DOS DEBUG
 
 # include rules for device building
 AXB_TOP ?= $(PWD)/../..

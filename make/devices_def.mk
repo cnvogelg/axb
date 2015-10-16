@@ -11,11 +11,13 @@ AXB_DEVSTUB_ASM = $(AXB_TOP)/src/axb_devstub.s
 # add device sources
 VPATH += $(AXB_TOP)/src $(BUILD_DIR)
 
-
 # ----- template -----
 # $(1) compilers
 # $(2) variant
 define DEVICE_DEF_TEMPLATE
+
+# user device files
+$(1)_$(2)_DEVICE_OBJS = $$(patsubst %.c,$$($(1)_$(2)_BUILD_DIR)/%.o,$$(AXB_DEVICE_SRCS_C))
 
 # derived device name
 $(1)_$(2)_DEVICE_FILE = $$($(1)_$(2)_BUILD_DIR)/$$(AXB_DEVICE)
@@ -29,10 +31,12 @@ $(1)_$(2)_DEVSIZE_RAW = $$($(1)_$(2)_BUILD_DIR)/devsize.raw
 $(1)_$(2)_AXB_DEVSTUB_OBJ = $$($(1)_$(2)_BUILD_DIR)/axb_devstub.o
 $(1)_$(2)_AXB_DEVICE_OBJ = $$($(1)_$(2)_BUILD_DIR)/axb_device.o
 
-$(1)_$(2)_DEVICE_OBJS = $$($(1)_$(2)_AXB_DEVSTUB_OBJ) $$($(1)_$(2)_AXB_DEVICE_OBJ)
+$(1)_$(2)_DEVICE_OBJS += $$($(1)_$(2)_AXB_DEVSTUB_OBJ) $$($(1)_$(2)_AXB_DEVICE_OBJ)
 
 ALL_DEVICE_OBJS += $$($(1)_$(2)_DEVICE_OBJS)
 ALL_DEVSIZE_INCS += $$($(1)_$(2)_DEVSIZE_INC)
+
+ALL_DEVICES += $$($(1)_$(2)_BUILD_DIR)/$$(AXB_DEVICE)
 
 endef
 

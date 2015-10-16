@@ -23,6 +23,8 @@ GCC_EXT = gcc
 GCC_COMPILE_OUT = -c -o
 GCC_LINK_OUT = -o
 GCC_INC_PREFIX = -I
+GCC_DEFINE_PREFIX = -D
+GCC_DEVICE_LDFLAGS = -nostartfiles -nostdlib
 
 # --- AROS_GCC ---
 AROS_GCC_BIN = m68k-aros-gcc
