@@ -21,6 +21,7 @@
 
 /* enable deubug macro D(()) */
 #ifdef AXB_DEBUG
+extern void KPrintF(char *, ...);
 #define D(x) KPrintF x ;
 #else
 #define D(x)

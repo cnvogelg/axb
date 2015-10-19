@@ -1,7 +1,5 @@
 #include <proto/exec.h>
 
-#include <clib/debug_protos.h>
-
 #include <axb/common.h>
 #include <axb/devbase.h>
 

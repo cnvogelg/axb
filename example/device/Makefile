@@ -1,7 +1,7 @@
 # example for creating a device
 
 AXB_PROJECT = device
-AXB_COMPILERS = GCC #VBCC
+AXB_COMPILERS = GCC VBCC
 
 # define device name
 AXB_DEVICE = example.device
