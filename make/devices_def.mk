@@ -28,6 +28,11 @@ $(1)_$(2)_DEVSIZE_RAW = $$($(1)_$(2)_BUILD_DIR)/devsize.raw
 $(1)_$(2)_AXB_DEVSTUB_OBJ = $$($(1)_$(2)_BUILD_DIR)/axb_devstub.o
 $(1)_$(2)_AXB_DEVICE_OBJ = $$($(1)_$(2)_BUILD_DIR)/axb_device.o
 
+# extra device files
+ifneq (,($findstring AXB_DEVICE_USE_WORKER,$(AXB_DEFINES)))
+$(1)_$(2)_AXB_DEVICE_OBJ += $$($(1)_$(2)_BUILD_DIR)/axb_worker.o
+endif
+
 # stubs and user device files
 $(1)_$(2)_DEVICE_OBJS = $$($(1)_$(2)_AXB_DEVSTUB_OBJ) $$($(1)_$(2)_AXB_DEVICE_OBJ) \
 	$$(patsubst %.c,$$($(1)_$(2)_BUILD_DIR)/%.o,$$(AXB_DEVICE_SRCS_C))

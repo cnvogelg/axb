@@ -1,19 +1,21 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+/* compiler specific switches */
 #ifdef __GNUC__
 #define AXB_REG(t,r)  t __asm(#r)
-#define AXB_ASM_REG(x) __attribute__((regparm(x)))
+#define AXB_REG_FUNC __attribute__((regparm))
 #else
 #ifdef __VBCC__
 #define AXB_REG(t,r) __reg( #r ) t
-#define AXB_ASM_REG(x)
+#define AXB_REG_FUNC
 #else
 #error unsupported compiler
 #endif
 #endif
 
-#ifdef DEBUG
+/* enable deubug macro D(()) */
+#ifdef AXB_DEBUG
 #define D(x) KPrintF x ;
 #else
 #define D(x)

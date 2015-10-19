@@ -13,7 +13,7 @@ struct Device * DevInit(AXB_REG(struct DevBase *db,d0),
   db->db_SegList = seglist;
   db->db_SysBase = _SysBase;
 
-#ifdef USE_DOS
+#ifdef AXB_DEVICE_USE_DOS
   db->db_DosBase = OpenLibrary("dos.library", DOS_MIN_VERSION);
   if(db->db_DosBase == NULL) {
     return NULL;
@@ -40,7 +40,7 @@ BPTR DevExpunge(AXB_REG(struct DevBase *db,a6))
     /* user exit */
     UserDevExpunge(db);
 
-#ifdef USE_DOS
+#ifdef AXB_DEVICE_USE_DOS
     CloseLibrary(db->db_DosBase);
 #endif
 

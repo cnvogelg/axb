@@ -13,14 +13,14 @@ struct DevBase {
   struct Library  db_Lib;
   struct Library *db_SysBase;
   BPTR            db_SegList;
-#ifdef USE_DOS
+#ifdef AXB_DEVICE_USE_DOS
   struct Library *db_DosBase;
 #endif
 };
 
 /* for Exec inline macros: access base via DevBase */
 #define SysBase db->db_SysBase
-#ifdef USE_DOS
+#ifdef AXB_DEVICE_USE_DOS
 #define DOSBase db->db_DosBase
 #endif
 
