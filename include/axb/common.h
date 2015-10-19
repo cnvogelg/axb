@@ -10,7 +10,12 @@
 #define AXB_REG(t,r) __reg( #r ) t
 #define AXB_REG_FUNC
 #else
+#ifdef __SASC
+#define AXB_REG(t,r) register __ ## r t
+#define AXB_REG_FUNC __asm
+#else
 #error unsupported compiler
+#endif
 #endif
 #endif
 

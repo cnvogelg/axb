@@ -47,20 +47,20 @@ void AXB_REG_FUNC user_worker_cmd(struct DevBase *db, struct IORequest *ior)
   }
 }
 
-int UserDevInit(AXB_REG(struct DevBase *db,a6))
+int AXB_REG_FUNC UserDevInit(AXB_REG(struct DevBase *db,a6))
 {
   D(("UserDevInit\n"));
   return 0;
 }
 
-void UserDevExpunge(AXB_REG(struct DevBase *db,a6))
+void AXB_REG_FUNC UserDevExpunge(AXB_REG(struct DevBase *db,a6))
 {
   D(("UserDevExpunge\n"));
 }
 
-int UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
-                AXB_REG(ULONG unit,d0),
-                AXB_REG(struct DevBase *db,a6))
+int AXB_REG_FUNC UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
+                             AXB_REG(ULONG unit,d0),
+                             AXB_REG(struct DevBase *db,a6))
 {
   struct ExBase *eb = (struct ExBase *)db;
 
@@ -69,8 +69,8 @@ int UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
   return (eb->eb_WorkerPort == NULL);
 }
 
-void UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
-                  AXB_REG(struct DevBase *db,a6))
+void AXB_REG_FUNC UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
+                               AXB_REG(struct DevBase *db,a6))
 {
   struct ExBase *eb = (struct ExBase *)db;
 
@@ -78,8 +78,8 @@ void UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
   worker_stop(db, eb->eb_WorkerPort);
 }
 
-void DevBeginIO(AXB_REG(struct IOStdReq *ior,a1),
-                AXB_REG(struct DevBase *db,a6))
+void AXB_REG_FUNC DevBeginIO(AXB_REG(struct IOStdReq *ior,a1),
+                             AXB_REG(struct DevBase *db,a6))
 {
   struct ExBase *eb = (struct ExBase *)db;
 

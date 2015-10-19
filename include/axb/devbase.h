@@ -28,12 +28,12 @@ struct DevBase {
 #define RealSysBase struct { struct Library *db_SysBase; } *db = (void*)0x4
 
 /* easy access to device */
-int UserDevInit(AXB_REG(struct DevBase *db,a6));
-void UserDevExpunge(AXB_REG(struct DevBase *db,a6));
-int UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
-                AXB_REG(ULONG unit,d0),
-                AXB_REG(struct DevBase *db,a6));
-void UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
-                  AXB_REG(struct DevBase *db,a6));
+int AXB_REG_FUNC UserDevInit(AXB_REG(struct DevBase *db,a6));
+void AXB_REG_FUNC UserDevExpunge(AXB_REG(struct DevBase *db,a6));
+int AXB_REG_FUNC UserDevOpen(AXB_REG(struct IOStdReq *ior,a1),
+                             AXB_REG(ULONG unit,d0),
+                             AXB_REG(struct DevBase *db,a6));
+void AXB_REG_FUNC UserDevClose(AXB_REG(struct IOStdReq *ior,a1),
+                               AXB_REG(struct DevBase *db,a6));
 
 #endif
