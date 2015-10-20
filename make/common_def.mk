@@ -1,6 +1,6 @@
 # common defs
 
-BUILD_DIR = BUILD/$(AXB_PROJECT)
+BUILD_DIR = $(AXB_BUILD_TOP)/BUILD/$(AXB_PROJECT)
 
 # --- variant defs ---
 OPT_EXT = opt

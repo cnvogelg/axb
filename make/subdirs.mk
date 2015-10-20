@@ -7,6 +7,8 @@
 
 AXP_TOP = $(realpath $(AXB_TOP))
 export AXB_TOP
+AXB_BUILD_TOP = $(realpath $(AXB_BUILD_TOP))
+export AXB_BUILD_TOP
 
 AXB_SUB_RULES ?= all clean
 

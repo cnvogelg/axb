@@ -22,5 +22,6 @@ AXB_PROGRAMS=test
 AXB_SRCS_C_test=test.c
 
 # include rules for device building
+AXB_BUILD_TOP ?= $(PWD)/..
 AXB_TOP ?= $(PWD)/../..
 include $(AXB_TOP)/axb.mk
