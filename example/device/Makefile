@@ -16,8 +16,6 @@ AXB_DEVICE_LIBSIZE_NAME = ExBase
 # source files for device
 AXB_DEVICE_SRCS_C = example.c
 AXB_DEFINES = AXB_DEVICE_USE_DOS AXB_DEVICE_USE_WORKER AXB_DEBUG
-AXB_DEVICE_AMI_LIBS = debug.lib
-AXB_DEVICE_LIBS = amiga
 
 # test program
 AXB_PROGRAMS=test

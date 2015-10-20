@@ -18,6 +18,7 @@ VBCC_DEFINE_PREFIX = -D
 VBCC_LIB_PREFIX = -l
 VBCC_LIB_DIR_PREFIX = -L
 VBCC_DEVICE_LDFLAGS = -nostdlib
+VBCC_DEBUG_LIB = $(AMIGA_LIBS_DIR)/debug.lib
 
 # --- GCC ---
 GCC_BIN = m68k-amigaos-gcc
@@ -35,6 +36,8 @@ GCC_DEFINE_PREFIX = -D
 GCC_LIB_PREFIX = -l
 GCC_LIB_DIR_PREFIX = -L
 GCC_DEVICE_LDFLAGS = -nostartfiles -nostdlib
+GCC_DEBUG_LIB = $(AMIGA_LIBS_DIR)/debug.lib
+GCC_LIBS = -lamiga
 
 # --- AROS_GCC ---
 AROS_GCC_BIN = m68k-aros-gcc

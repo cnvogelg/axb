@@ -37,9 +37,10 @@ endif
 $(1)_$(2)_DEVICE_OBJS = $$($(1)_$(2)_AXB_DEVSTUB_OBJ) $$($(1)_$(2)_AXB_DEVICE_OBJ) \
 	$$(patsubst %.c,$$($(1)_$(2)_BUILD_DIR)/%.o,$$(AXB_DEVICE_SRCS_C))
 
-# extra libs for device
-$(1)_$(2)_DEVICE_LIBS = $$(patsubst %,$$(AMIGA_LIBS_DIR)/%,$$(AXB_DEVICE_AMI_LIBS))
-$(1)_$(2)_DEVICE_LIBS += $$(patsubst %,$$($(1)_LIB_PREFIX)%,$$(AXB_DEVICE_LIBS))
+# extra libs for debug
+ifneq (,($findstring AXB_DEBUG,$(AXB_DEFINES)))
+$(1)_$(2)_DEVICE_LIBS += $$($(1)_DEBUG_LIB)
+endif
 
 ALL_DEVICE_OBJS += $$($(1)_$(2)_DEVICE_OBJS)
 ALL_DEVSIZE_INCS += $$($(1)_$(2)_DEVSIZE_INC)
