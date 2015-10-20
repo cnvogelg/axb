@@ -1,7 +1,4 @@
 
-AXB_TOP:=$(realpath $(AXB_TOP))
-AXB_BUILD_TOP:=$(realpath $(AXB_BUILD_TOP))
-
 # set the used compilers
 AXB_COMPILERS ?= VBCC GCC AROS_GCC SASC
 # set the used variants
@@ -11,7 +8,7 @@ AXB_VARIANTS ?= OPT DEBUG
 AXB_TARGETS ?= $(AXB_PROGRAMS)
 
 # add include
-AXB_INCLUDES += $(PWD) $(AXB_TOP)/include
+AXB_INCLUDES += . $(AXB_TOP)/include
 
 include $(AXB_TOP)/make/common_def.mk
 include $(AXB_TOP)/make/compiler_def.mk
