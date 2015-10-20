@@ -3,9 +3,9 @@
 #include <axb/common.h>
 #include <axb/devbase.h>
 
-struct Device * DevInit(AXB_REG(struct DevBase *db,d0),
-                        AXB_REG(BPTR seglist,a0),
-                        AXB_REG(struct Library *_SysBase,a6))
+struct Device * AXB_REG_FUNC DevInit(AXB_REG(struct DevBase *db,d0),
+                                     AXB_REG(BPTR seglist,a0),
+                                     AXB_REG(struct Library *_SysBase,a6))
 {
   /* store sys base */
   db->db_SegList = seglist;
@@ -25,7 +25,7 @@ struct Device * DevInit(AXB_REG(struct DevBase *db,d0),
   return (struct Device *)db;
 }
 
-BPTR DevExpunge(AXB_REG(struct DevBase *db,a6))
+BPTR AXB_REG_FUNC DevExpunge(AXB_REG(struct DevBase *db,a6))
 {
   BPTR seglist = 0;
 
@@ -55,10 +55,10 @@ BPTR DevExpunge(AXB_REG(struct DevBase *db,a6))
   return seglist;
 }
 
-LONG DevOpen(AXB_REG(struct IOStdReq *ior,a1),
-             AXB_REG(ULONG unit,d0),
-             AXB_REG(ULONG flags,d1),
-             AXB_REG(struct DevBase *db,a6))
+LONG AXB_REG_FUNC DevOpen(AXB_REG(struct IOStdReq *ior,a1),
+                          AXB_REG(ULONG unit,d0),
+                          AXB_REG(ULONG flags,d1),
+                          AXB_REG(struct DevBase *db,a6))
 {
   /* count user */
   db->db_Lib.lib_OpenCnt++;
@@ -75,8 +75,8 @@ LONG DevOpen(AXB_REG(struct IOStdReq *ior,a1),
   return (LONG)db;
 }
 
-BPTR DevClose(AXB_REG(struct IOStdReq *ior,a1),
-              AXB_REG(struct DevBase *db,a6))
+BPTR AXB_REG_FUNC DevClose(AXB_REG(struct IOStdReq *ior,a1),
+                           AXB_REG(struct DevBase *db,a6))
 {
   BPTR seglist;
 

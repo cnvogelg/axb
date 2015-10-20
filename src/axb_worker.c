@@ -15,7 +15,7 @@ struct MyStartMsg {
   struct MsgPort *port;
 };
 
-static struct MyStartMsg * AXB_REG_FUNC worker_startup(void)
+static struct MyStartMsg * worker_startup(void)
 {
   struct Process *proc;
   struct MyStartMsg *msg;
@@ -34,7 +34,7 @@ static struct MyStartMsg * AXB_REG_FUNC worker_startup(void)
   return msg;
 }
 
-static void AXB_REG_FUNC worker_main(void)
+static void worker_main(void)
 {
   struct IORequest *ior;
   struct DevBase *db;
@@ -94,7 +94,7 @@ end:
   ReplyMsg(&ior->io_Message);
 }
 
-struct MsgPort * AXB_REG_FUNC worker_start(struct DevBase *db)
+struct MsgPort * worker_start(struct DevBase *db)
 {
   struct Process *myProc;
   struct MyStartMsg msg;
@@ -121,10 +121,9 @@ struct MsgPort * AXB_REG_FUNC worker_start(struct DevBase *db)
   return msg.port;
 }
 
-void AXB_REG_FUNC worker_stop(struct DevBase *db, struct MsgPort *port)
+void worker_stop(struct DevBase *db, struct MsgPort *port)
 {
   struct IORequest newior;
-  struct ExBase *eb = (struct ExBase *)db;
 
   D(("Worker: stop\n"));
 

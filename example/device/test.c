@@ -1,5 +1,9 @@
 #include <exec/devices.h>
+#include <dos/dos.h>
+
 #include <proto/exec.h>
+#include <proto/dos.h>
+#include <clib/alib_protos.h>
 
 int main(void)
 {

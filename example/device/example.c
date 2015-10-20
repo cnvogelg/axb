@@ -7,7 +7,7 @@
 
 #include "exbase.h"
 
-int AXB_REG_FUNC user_worker_init(struct DevBase *db)
+int user_worker_init(struct DevBase *db)
 {
   struct ExBase *eb = (struct ExBase *)db;
 
@@ -18,7 +18,7 @@ int AXB_REG_FUNC user_worker_init(struct DevBase *db)
   return 0;
 }
 
-void AXB_REG_FUNC user_worker_exit(struct DevBase *db)
+void user_worker_exit(struct DevBase *db)
 {
   struct ExBase *eb = (struct ExBase *)db;
 
@@ -26,7 +26,7 @@ void AXB_REG_FUNC user_worker_exit(struct DevBase *db)
   Close(eb->eb_Output);
 }
 
-void AXB_REG_FUNC user_worker_cmd(struct DevBase *db, struct IORequest *ior)
+void user_worker_cmd(struct DevBase *db, struct IORequest *ior)
 {
   struct ExBase *eb = (struct ExBase *)db;
   struct IOStdReq *isr = (struct IOStdReq *)ior;
@@ -108,8 +108,8 @@ void AXB_REG_FUNC DevBeginIO(AXB_REG(struct IOStdReq *ior,a1),
   }
 }
 
-LONG DevAbortIO(AXB_REG(struct IOStdReq *ior,a1),
-                AXB_REG(struct DevBase *db,a6))
+LONG AXB_REG_FUNC DevAbortIO(AXB_REG(struct IOStdReq *ior,a1),
+                             AXB_REG(struct DevBase *db,a6))
 {
   D(("DevAbortIO\n"));
   return 0;
